@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using YLOAuth2.Common;
 using YLOAuth2.Models;
 
 namespace YLOAuth2.Controllers
 {
     public class OauthController : Controller
     {
-        ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
+      //  ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost");
         /// <summary>
         /// 获取授权码
         /// </summary>
@@ -31,8 +32,8 @@ namespace YLOAuth2.Controllers
                 throw new ArgumentNullException("response_type参数不能为空！");
             }
             ViewBag.RedirectUrl = CreateUrl(param);
-            var db=redis.GetDatabase();
-            db.StringSet(param.client_id, param.state);
+           /// var db=redis.GetDatabase();
+         //   db.StringSet(param.client_id, param.state);
             return View();
         }
 
@@ -50,10 +51,13 @@ namespace YLOAuth2.Controllers
 
         private string CreateAuthorazitionCode(RequestParam param)
         {
-            Random rd = new Random(0);
-            var code= rd.Next(100, 999).ToString();
-            var db = redis.GetDatabase();
-            db.StringSet(param.client_id, code, TimeSpan.FromSeconds(600));
+            //生成授权码
+            var code = CryptHelper.EncryptByMD5_Base64(DateTime.Now.Ticks.ToString());
+
+            //保存授权码 TODO
+
+          //  var db = redis.GetDatabase();
+          // db.StringSet(param.client_id, code, TimeSpan.FromSeconds(600));
             return code;
         }
         public RedirectResult RedirectResult()

@@ -357,6 +357,7 @@
     <Compile Include="Models\RequestParam.cs" />
     <Compile Include="Models\ResponseDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\TestFilterAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

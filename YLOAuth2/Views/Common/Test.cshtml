@@ -83,9 +83,6 @@
     layui.use(['layer', 'form'], function () {
         var layer = layui.layer
             , form = layui.form;
-
-       
-
         $("button[name='encrypt']").click(function () {
             var data = form.val("formTest");
             $.ajax({
@@ -101,7 +98,7 @@
                 },
                 error: function (data) {
                     var dd = 222;
-                    layer.msg("错误+" + data);
+                    layer.msg("错误:" + data.responseText);
                 }
             });
         });
@@ -122,59 +119,11 @@
                 },
                 error: function (data) {
                     var dd = 222;
-                    layer.msg("错误+" + data);
+                    layer.msg("错误:" + data);
                 }
             });
         });
     });
-
-
-    //$(function () {
-    //    //Demo
-    //    var layer = layui.layer
-    //        , form = layui.form;
-
-    //        var data = form.val("formTest");
-            
-    //        $("button[name='encrypt']").click(function () {
-    //            $.ajax({
-    //                url: '/Common/Test',
-    //                method: 'post',
-    //                data: { str: data.field.jmContent, key: data.field.myKey, mode: data.field.encryptMode },
-    //                dataType: 'json',
-    //                success: function (data) {
-    //                    //给表单赋值
-    //                    form.val("formTest", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
-    //                        "jmContent": data// "name": "value"
-    //                    });
-    //                },
-    //                error: function (data) {
-    //                    var dd = 222;
-    //                    layer.msg("错误+" + data);
-    //                }
-    //            });
-    //        });
-
-
-    //        $("button[name='decrypt']").click(function () {
-    //            $.ajax({
-    //                url: '/Common/DeTest',
-    //                method: 'post',
-    //                data: { str: data.field.jmwContent, key: data.field.myKey },
-    //                dataType: 'json',
-    //                success: function (data) {
-    //                    //给表单赋值
-    //                    form.val("formTest", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
-    //                        "jywContent": data// "name": "value"
-    //                    });
-    //                },
-    //                error: function (data) {
-    //                    var dd = 222;
-    //                    layer.msg("错误+" + data);
-    //                }
-    //            });
-    //        });
-    //});
    
 </script>
 
