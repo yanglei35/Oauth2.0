@@ -1,0 +1,181 @@
+﻿
+@{
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+}
+
+<div style="margin: 10px 50px;">
+    <form class="layui-form" action=""  lay-filter="formTest">
+
+        <span>加密</span>
+        <hr class="layui-bg-red">
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密钥</label>
+            <div class="layui-input-block">
+                <input type="text" name="myKey" required  placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">加密模式</label>
+            <div class="layui-input-block">
+                <select name="encryptMode" >
+                    <option value=""></option>
+                    <option value="1">MD5</option>
+                    <option value="2">DES</option>
+                    <option value="3">深圳</option>
+                    <option value="4">杭州</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">加密内容</label>
+            <div class="layui-input-block">
+                <textarea name="jmContent" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">密文</label>
+            <div class="layui-input-block">
+                <textarea name="mwContent" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button name="encrypt" type="button" class="layui-btn" lay-filter="Encrypt">加密</button>
+            </div>
+        </div>
+
+
+
+
+
+        <span>解密</span>
+        <hr class="layui-bg-red">
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">密文</label>
+            <div class="layui-input-block">
+                <textarea name="jmwContent" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">原文</label>
+            <div class="layui-input-block">
+                <textarea name="jywContent" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button name="decrypt"  type="button" class="layui-btn">解密</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script>
+
+
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer
+            , form = layui.form;
+
+       
+
+        $("button[name='encrypt']").click(function () {
+            var data = form.val("formTest");
+            $.ajax({
+                url: '/Common/Test',
+                method: 'post',
+                data: { str: data.jmContent, key: data.myKey, mode: data.encryptMode },
+              
+                success: function (data) {
+                    //给表单赋值
+                    form.val("formTest", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                        "mwContent": data// "name": "value"
+                    });
+                },
+                error: function (data) {
+                    var dd = 222;
+                    layer.msg("错误+" + data);
+                }
+            });
+        });
+
+
+        $("button[name='decrypt']").click(function () {
+            var data = form.val("formTest");
+            $.ajax({
+                url: '/Common/DeTest',
+                method: 'post',
+                data: { str: data.jmwContent, key: data.myKey },
+              
+                success: function (data) {
+                    //给表单赋值
+                    form.val("formTest", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                        "jywContent": data// "name": "value"
+                    });
+                },
+                error: function (data) {
+                    var dd = 222;
+                    layer.msg("错误+" + data);
+                }
+            });
+        });
+    });
+
+
+    //$(function () {
+    //    //Demo
+    //    var layer = layui.layer
+    //        , form = layui.form;
+
+    //        var data = form.val("formTest");
+            
+    //        $("button[name='encrypt']").click(function () {
+    //            $.ajax({
+    //                url: '/Common/Test',
+    //                method: 'post',
+    //                data: { str: data.field.jmContent, key: data.field.myKey, mode: data.field.encryptMode },
+    //                dataType: 'json',
+    //                success: function (data) {
+    //                    //给表单赋值
+    //                    form.val("formTest", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+    //                        "jmContent": data// "name": "value"
+    //                    });
+    //                },
+    //                error: function (data) {
+    //                    var dd = 222;
+    //                    layer.msg("错误+" + data);
+    //                }
+    //            });
+    //        });
+
+
+    //        $("button[name='decrypt']").click(function () {
+    //            $.ajax({
+    //                url: '/Common/DeTest',
+    //                method: 'post',
+    //                data: { str: data.field.jmwContent, key: data.field.myKey },
+    //                dataType: 'json',
+    //                success: function (data) {
+    //                    //给表单赋值
+    //                    form.val("formTest", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+    //                        "jywContent": data// "name": "value"
+    //                    });
+    //                },
+    //                error: function (data) {
+    //                    var dd = 222;
+    //                    layer.msg("错误+" + data);
+    //                }
+    //            });
+    //        });
+    //});
+   
+</script>
+
+

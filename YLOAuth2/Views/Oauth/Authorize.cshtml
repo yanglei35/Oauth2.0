@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Oauth</title>
+    <script>
+        $(function () {
+            $(".sure").click(function () {
+                window.location.href = "@Html.Raw(ViewBag.RedirectUrl)";
+            });
+            $(".no-sure").click(function () {
+                window.close();
+            });
+        });
+
+
+    </script>
+</head>
+<body>
+
+    <div>
+        <span>百度想获取一下的权限！</span>
+    </div>
+    <div>
+        <ul>
+            <li>1、哈哈哈哈</li>
+            <li>2、哈哈哈哈</li>
+            <li>3、哈哈哈哈</li>
+            <li>4、哈哈哈哈</li>
+        </ul>
+    </div>
+    <div>
+        <input type="button" class="sure" value="同意" />
+        <input type="button" class="no-sure" value="不同意" />
+    </div>
+</body>
+</html>
