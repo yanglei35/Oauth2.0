@@ -1,1 +1,1 @@
-http://localhost:36361/Oauth/Authorize?response_type=code&client_id=client_id&redirect_uri=https%3a%2f%2fwww.baidu.com&scope=read
+http://localhost:8088/Oauth/Authorize?response_type=code&client_id=AA&redirect_uri=http%3a%2f%2flocalhost%3a8087%2fHome%2fIndexAsync&scope=read

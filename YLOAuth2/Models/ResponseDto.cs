@@ -5,6 +5,7 @@ using System.Web;
 
 namespace YLOAuth2.Models
 {
+    [Serializable]
     public class ResponseDto
     {
         /// <summary>
@@ -20,6 +21,6 @@ namespace YLOAuth2.Models
         /// <summary>
         /// 
         /// </summary>
-        public string Data { get; set; }
+        public Object Data { get; set; }
     }
 }

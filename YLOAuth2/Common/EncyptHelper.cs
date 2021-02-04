@@ -172,8 +172,8 @@ namespace YLOAuth2.Common
         {
             byte[] inputByteArray = Encoding.GetEncoding("UTF-8").GetBytes(content);
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
-            aes.Key = ASCIIEncoding.GetEncoding("UTF-8").GetBytes(key);
-            aes.IV = Encoding.GetEncoding("UTF-8").GetBytes(key);
+            aes.Key = ASCIIEncoding.GetEncoding("UTF-8").GetBytes(key); //在AES的情况下，密钥是32位
+            aes.IV = Encoding.GetEncoding("UTF-8").GetBytes(key.Substring(0, 16)); //在AES的情况下，该大小为16字节 
             MemoryStream ms = new MemoryStream();
             CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write); //将数据流连接到加密转换的流
             cs.Write(inputByteArray, 0, inputByteArray.Length);
@@ -185,7 +185,7 @@ namespace YLOAuth2.Common
         }
 
         /// <summary>
-        /// AES加密
+        /// AES解密 
         /// </summary>
         /// <param name="content">待加密内容</param>
         /// <param name="key">密钥</param>
@@ -194,8 +194,8 @@ namespace YLOAuth2.Common
         {
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
             byte[] inputByteArray = Convert.FromBase64String(content);
-            aes.Key = Encoding.GetEncoding("UTF-8").GetBytes(key);
-            aes.IV = Encoding.GetEncoding("UTF-8").GetBytes(key);
+            aes.Key = Encoding.GetEncoding("UTF-8").GetBytes(key);//在AES的情况下，密钥是32位
+            aes.IV = Encoding.GetEncoding("UTF-8").GetBytes(key.Substring(0,16)); //在AES的情况下，该大小为16字节 
             MemoryStream ms = new MemoryStream();
             try
             {
